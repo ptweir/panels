@@ -84,8 +84,8 @@ function Present_Stripe_Horizontal_Vertical3(Repeat,StripeDuration,HorizontalDur
 NofRows=Repeat*48*2+2;
 TimeMatrix=zeros(NofRows,6);
 
-Gain_H=[64 -64];
-Gain_V=[64 -64];
+Gain_H=[16 -16];
+Gain_V=[16 -16];
 
 for n=1:Repeat
     SequenceIndex_H(n,:)=randperm(2);%Corresponds to 1 hz to the right and to the left.
