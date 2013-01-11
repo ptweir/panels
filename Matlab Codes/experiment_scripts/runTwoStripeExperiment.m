@@ -81,7 +81,7 @@ for i = 1:NUM_REPEATS
         fprintf(['block ', num2str(i),' of ',num2str(NUM_REPEATS), ', num cond left = ' jout ', y = ',num2str(y_position_this_trial), ', function = ', num2str(function_id_this_trial), '\n']);
         Panel_com('set_position',[CENTER_X_POS, ONE_STRIPE_Y_POS]);
         Panel_com('set_mode', [1, 0]);
-        Panel_com('send_gain_bias',[-50,0,0,0])
+        Panel_com('send_gain_bias',[-20,0,0,0])
         Panel_com('start');
         pause(BETWEEN_TRIAL_TIME_SEC)
         Panel_com('stop');
@@ -99,5 +99,5 @@ end
 
 Panel_com('set_position',[CENTER_X_POS, ONE_STRIPE_Y_POS]);
 Panel_com('set_mode', [1, 0]);
-Panel_com('send_gain_bias',[-50,0,0,0])
+Panel_com('send_gain_bias',[-20,0,0,0])
 Panel_com('start');
