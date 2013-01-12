@@ -80,16 +80,22 @@ for i = 1:NUM_REPEATS
         % print status:
         fprintf(['block ', num2str(i),' of ',num2str(NUM_REPEATS), ', num cond left = ' jout ', y = ',num2str(y_position_this_trial), ', function = ', num2str(function_id_this_trial), '\n']);
         Panel_com('set_position',[CENTER_X_POS, ONE_STRIPE_Y_POS]);
+        pause(.04)
         Panel_com('set_mode', [1, 0]);
+        pause(.04)
         Panel_com('send_gain_bias',[-20,0,0,0])
+        pause(.04)
         Panel_com('start');
         pause(BETWEEN_TRIAL_TIME_SEC)
         Panel_com('stop');
         
         Panel_com('set_mode', [X_MODE_FUNC, Y_MODE]);
+        pause(.04)
         Panel_com('set_posfunc_id',[1, function_id_this_trial]); % 1 for x pattern
+        pause(.04)
         Panel_com('set_position',[x_position_this_trial, y_position_this_trial]);
-        putsample(AO, [function_id_this_trial, x_position_this_trial]);
+        pause(.04)
+        putsample(AO, [function_id_this_trial, x_position_this_trial*AO_max/96]);
         Panel_com('start');
         pause(TRIAL_TIME_SEC)
         Panel_com('stop');
