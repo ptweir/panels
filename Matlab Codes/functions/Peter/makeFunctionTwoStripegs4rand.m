@@ -43,6 +43,11 @@ funcOscNegDirx = round(-OSC_AMP_FRAMES*sin(2*pi*OSC_FREQ_HZ*tOsc) + LEFT_OSC_OFF
 
 funcBlanky = 0*tBlank+BLANK_POS_OFFSET_Y;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FROM FUTURE: noticed bug, these should be [funcBlanky, tOsc*0 +
+% ONE_STRIPE_OFFSET_Y, funcBlanky(1:end-1)];, etc but got lucky because
+% mod(52, 4)=0, so mod(funcy, MAX_POS_Y) corrects mistake
+%%%%%%%%%%%%%%%%%%%%%%%%%
 allFuncy(1,:) = [funcBlanky, tOsc*0 + ONE_STRIPE_OFFSET_Y, funcBlankx(1:end-1)];
 allFuncy(2,:) = [funcBlanky, tOsc*0 + TWO_STRIPE_OFFSET_Y, funcBlankx(1:end-1)];
 allFuncy(3,:) = [funcBlanky, tOsc*0 + TWO_OPP_STRIPE_OFFSET_Y, funcBlankx(1:end-1)];
