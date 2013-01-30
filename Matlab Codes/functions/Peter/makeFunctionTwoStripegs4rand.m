@@ -39,7 +39,8 @@ TWO_OPP_STRIPE_OFFSET_Y = 3;
 
 funcBlankx = 0*tBlank+BLANK_POS_OFFSET_X;
 funcOscPosDirx = round(OSC_AMP_FRAMES*sin(2*pi*OSC_FREQ_HZ*tOsc) + RIGHT_OSC_OFFSET);
-funcOscNegDirx = round(-OSC_AMP_FRAMES*sin(2*pi*OSC_FREQ_HZ*tOsc) + LEFT_OSC_OFFSET);
+funcOscNegDirx = round(OSC_AMP_FRAMES*sin(2*pi*OSC_FREQ_HZ*tOsc) + LEFT_OSC_OFFSET);
+% I think this would be equivalent: funcOscNegDirx = round(-OSC_AMP_FRAMES*sin(2*pi*OSC_FREQ_HZ*tOsc) + RIGHT_OSC_OFFSET);
 
 funcBlanky = 0*tBlank+BLANK_POS_OFFSET_Y;
 
