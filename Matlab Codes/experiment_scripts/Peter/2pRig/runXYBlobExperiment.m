@@ -22,7 +22,7 @@ DEG_PER_STEP = 90/(5*8);
 DESIRED_X_GAINS_H             = [ 40,  40,  40,  40, -40, -40, -40, -40];
 DESIRED_Y_GAINS_H             = [  0,   0,   0,   0,   0,   0,   0,   0];
 DESIRED_START_X_POSITIONS_H   = [  1,   1,   1,   1,  89,  89,  89,  89];
-DESIRED_START_X_POSITIONS_H   = [  1,   9,  17,  25,   1,   9,  17,  25];
+DESIRED_START_Y_POSITIONS_H   = [  1,   9,  17,  25,   1,   9,  17,  25];
 DESIRED_TRIAL_DURATIONS_SEC_H = [2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2, 2.2];
 
 %vertical motion:
@@ -35,7 +35,7 @@ DESIRED_TRIAL_DURATIONS_SEC_V = [ .6, .6, .6, .6, .6,  .6,  .6,  .6,  .6,  .6];
 DESIRED_X_GAINS             = [DESIRED_X_GAINS_H, DESIRED_X_GAINS_V];
 DESIRED_Y_GAINS             = [DESIRED_Y_GAINS_H, DESIRED_Y_GAINS_V];
 DESIRED_START_X_POSITIONS   = [DESIRED_START_X_POSITIONS_H, DESIRED_START_X_POSITIONS_V];
-DESIRED_START_Y_POSITIONS   = [DESIRED_START_X_POSITIONS_H, DESIRED_START_X_POSITIONS_V];
+DESIRED_START_Y_POSITIONS   = [DESIRED_START_Y_POSITIONS_H, DESIRED_START_Y_POSITIONS_V];
 DESIRED_TRIAL_DURATIONS_SEC = [DESIRED_TRIAL_DURATIONS_SEC_H, DESIRED_TRIAL_DURATIONS_SEC_V];
 
 blockTimeSec = numel(DESIRED_TRIAL_DURATIONS_SEC)*BETWEEN_TRIAL_TIME_SEC + sum(DESIRED_TRIAL_DURATIONS_SEC) 
@@ -61,22 +61,21 @@ NUM_REPEATS = 15; %how many times to repeat the whole sequence
 experimentTimeSec = blockTimeSec*NUM_REPEATS;
 experimentTimeMin = experimentTimeSec/60
 for i = 1:NUM_REPEATS
-    randInd = randperm(numConditions); %permute the pattern and function conditions
+    %randInd = randperm(numConditions); %permute the pattern and function conditions
+    randInd = [1:numConditions];
     for j = 1:numConditions
-        jout = num2str(numConditions - j);
         conditionNum = randInd(j); %select j-th condition
         xGainThisTrial = condition(conditionNum).xGain;
         yGainThisTrial = condition(conditionNum).yGain;
         xPosThisTrial = condition(conditionNum).xPos;
         yPosThisTrial = condition(conditionNum).yPos;
         durationSecThisTrial = condition(conditionNum).durationSec;
-        % print status:
-        fprintf(['block ' num2str(i) ' of ' num2str(NUM_REPEATS) ', num cond left = ' jout ', x gain = ' num2str(xGainThisTrial) ', y gain = ' num2str(yGainThisTrial) '\n']);
-        
         Panel_com('set_position',[BLANK_X_POS, BLANK_Y_POS]);
         pause(BETWEEN_TRIAL_TIME_SEC);
+        % print status:
+        fprintf(['block ' num2str(i) ' of ' num2str(NUM_REPEATS) ', trial ' num2str(j) ' of ' num2str(numConditions) ', xgain=' num2str(xGainThisTrial) ', ygain=' num2str(yGainThisTrial) ', x=' num2str(xPosThisTrial) ', y=' num2str(yPosThisTrial) ', t=' num2str(durationSecThisTrial) '\n']);
         Panel_com('set_position',[xPosThisTrial, yPosThisTrial]); pause(PANEL_COM_PAUSE);
-        Panel_com('send_gain_bias',[xGainThisTrial,yGainThisTrial,0,0]); pause(PANEL_COM_PAUSE);
+        Panel_com('send_gain_bias',[xGainThisTrial,0,yGainThisTrial,0]); pause(PANEL_COM_PAUSE);
         Panel_com('start');
         pause(durationSecThisTrial)
         Panel_com('stop'); pause(PANEL_COM_PAUSE);
