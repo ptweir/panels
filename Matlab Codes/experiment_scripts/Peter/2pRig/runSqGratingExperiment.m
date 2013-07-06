@@ -45,12 +45,12 @@ Panel_com('set_pattern_id', PATTERN_ID); pause(PANEL_COM_PAUSE);
 Panel_com('stop'); pause(PANEL_COM_PAUSE);
 Panel_com('set_mode', [OPEN_MODE, OPEN_MODE]); pause(PANEL_COM_PAUSE);
 
-NUM_REPEATS = 15; %how many times to repeat the whole sequence
+NUM_REPEATS = 100; %how many times to repeat the whole sequence
 experimentTimeSec = blockTimeSec*NUM_REPEATS;
 experimentTimeMin = experimentTimeSec/60
 for i = 1:NUM_REPEATS
-    %randInd = randperm(numConditions); %permute the pattern and function conditions
-    randInd = [1:numConditions];
+    randInd = randperm(numConditions); %permute the pattern and function conditions
+    %randInd = [1:numConditions];
     for j = 1:numConditions
         conditionNum = randInd(j); %select j-th condition
         xGainThisTrial = condition(conditionNum).xGain;
@@ -65,7 +65,7 @@ for i = 1:NUM_REPEATS
         fprintf(['block ' num2str(i) ' of ' num2str(NUM_REPEATS) ', trial ' num2str(j) ' of ' num2str(numConditions) ', xgain=' num2str(xGainThisTrial) ', ygain=' num2str(yGainThisTrial) ', t=' num2str(durationSecThisTrial) '\n']);
         Panel_com('stop'); pause(PANEL_COM_PAUSE);
         Panel_com('set_mode', [OPEN_MODE, OPEN_MODE]); pause(PANEL_COM_PAUSE);
-        Panel_com('set_position',[xPosThisTrial, yPosThisTrial]); pause(PANEL_COM_PAUSE);
+        Panel_com('set_position',[5, 2]); pause(PANEL_COM_PAUSE);
         Panel_com('send_gain_bias',[xGainThisTrial,0,yGainThisTrial,0]); pause(PANEL_COM_PAUSE);
         if durationSecThisTrial>0
             Panel_com('start');
@@ -83,7 +83,7 @@ for i = 1:NUM_REPEATS
         fprintf(['block ' num2str(i) ' of ' num2str(NUM_REPEATS) ', trial ' num2str(j) ' of ' num2str(numConditions) ', xgain=' num2str(xGainThisTrial) ', ygain=' num2str(yGainThisTrial) ', t=' num2str(durationSecThisTrial) '\n']);
         Panel_com('stop'); pause(PANEL_COM_PAUSE);
         Panel_com('set_mode', [OPEN_MODE, OPEN_MODE]); pause(PANEL_COM_PAUSE);
-        Panel_com('set_position',[xPosThisTrial, yPosThisTrial]); pause(PANEL_COM_PAUSE);
+        Panel_com('set_position',[5, 2]); pause(PANEL_COM_PAUSE);
         Panel_com('send_gain_bias',[-xGainThisTrial,0,yGainThisTrial,0]); pause(PANEL_COM_PAUSE);
         if durationSecThisTrial>0
             Panel_com('start');
